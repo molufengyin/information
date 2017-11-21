@@ -1,0 +1,45 @@
+<% include header %>
+
+<div class="" ng-app="myApp" ng-controller="myCtrl">
+    <form action="" name="myForm" ng-submit="postForm($event)">
+        姓&nbsp;名：<input type="text" name="name" ng-model="data.name" required><br><br>
+        性&nbsp;别：<input type="radio" name="isMale" value="true"  ng-model="data.isMale"> 男
+               <input type="radio" name="isMale"  value="false" ng-model="data.isMale"> 女 <br><br>
+        邮&nbsp;箱：<input type="email" name="email" ng-model="data.email" required><br><br>
+        年&nbsp;龄：<input type="number" name="age" ng-model="data.age" required><br><br>
+        班 级：<select name="class" ng-model="data.class">
+                    <option value="28期"> 28期 </option>
+                    <option value="29期"> 29期 </option>
+                    <option value="30期"> 30期 </option>
+                    <option value="31期"> 31期 </option>
+               </select><br><br>
+        <button type="submit" > 添加 </button>
+         
+    </form>
+</div>
+<script>
+    const myApp = angular.module('myApp',[]);
+    myApp.controller('myCtrl',function($scope,$http){
+        $scope.data = {};
+        $scope.postForm = function(ev){
+            ev.preventDefault();
+            $http({
+                method:'POST',
+                url:'/add',
+                data:$.param($scope.data),
+                headers:{
+                    'Content-Type':'application/x-www-form-urlencoded'
+                }
+            }).then(function(result){
+                console.log(123);
+                console.log(result);
+                alert(result.data.message);
+                location.href = '/';
+            }).catch(function(error){
+                console.log(error);
+            })
+
+        }
+    })
+</script>
+<% include footer %>

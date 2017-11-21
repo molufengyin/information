@@ -1,0 +1,38 @@
+<% include header %>
+<div>
+    <form action="">
+        姓名：<input type="text" name="name" value="<%= data.name %>"  required disabled="disabled"> <br><br>
+        性别：<input type="radio" name="isMale"  value="true" <%= true == data.isMale  ? 'checked' : '' %> > 男
+        <input type="radio" name="isMale"   value="false" <%= false == data.isMale  ? 'checked' : '' %> >女 <br><br>
+        邮箱：<input type="email" name="email" value="<%= data.email   %>" required> <br><br>
+        年龄：<input type="text" name="age"  value="<%= data.age   %>" required> <br><br>
+        班级：<select name="class">
+            <!--只要属性存在，selected/disabled就会被选中-->
+            <option value="28期" <%= '28期' == data.class ? 'selected':'' %> > 28期 </option>
+            <option value="29期" <%= '23期' == data.class ? 'selected':'' %> > 29期 </option>
+            <option value="30期" <%= '30期' == data.class ? 'selected':'' %> > 30期 </option>
+            <option value="31期" <%= '31期' == data.class ? 'selected':'' %> > 31期 </option>
+        </select> <br><br>
+        <input type="hidden" value="<%= data.id %>" />
+        <button type="submit"> 更新  </button>
+    </form>
+</div>
+<script>
+    var id = $('input[type = hidden]').val();
+    $('form').submit(function(ev){
+        ev.preventDefault();
+        var data = $(this).serialize();
+        $.post('/edit/' + id, data, function(resData){
+            console.log(resData);
+            if(resData.error == 0){
+                alert(resData.message);
+                location.href = '/'
+            }else {
+                alert(resData.message);
+            }
+        })
+    })
+
+</script>
+
+<% include footer %>

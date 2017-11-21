@@ -1,0 +1,32 @@
+<% include header %>
+
+<% if(data.length == 0 ){ %>
+    <h2> <a href="/add"> 添加学生信息 </a> </h2>
+<% }else{%>
+<h1> 学生信息显示 </h1>  共 <b> <%= count %></b> 条
+<a href="/add"> 添加学生信息 </a>  <br /><br />
+<input type="search" placeholder="请输入搜索条件"><br><br>
+<table>
+    <tr>
+        <th> 姓 名 </th>
+        <th> 性 别 </th>
+        <th> 邮 箱 </th>
+        <th> 年 龄 </th>
+        <th> 班级 </th>
+        <th colspan='2'> 操 作 </th>
+    </tr>
+    <% for(var i = 0; i < data.length; i ++){%>
+    <tr>
+        <td> <%= data[i].name %></td>
+        <td> <%= data[i].isMale %></td>
+        <td> <%= data[i].email %></td>
+        <td> <%= data[i].age %></td>
+        <td> <%= data[i].class %></td>
+        <td><a href="/edit/<%= data[i]._id %>"> 编辑 </a></td>
+        <td><a href="/delete/<%= data[i]._id %>" > 删除 </a></td>
+    </tr>
+    <% } %>
+</table>
+<% } %>
+
+<% include footer %>
